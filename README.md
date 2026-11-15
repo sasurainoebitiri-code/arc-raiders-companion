@@ -4,5 +4,6 @@
 
 ## データの出典
 - アイテム・ハイドアウト・トレーダー・プロジェクト・ARC・スキル・地図: [RaidTheory/arcraiders-data](https://github.com/RaidTheory/arcraiders-data)（MIT License）/ [arctracker.io](https://arctracker.io)
+- マップの場所データ（物資・ARC・脱出地点など）: [MetaForge](https://metaforge.app/arc-raiders)（API利用条件に基づき出典表示）
 - クエストの画像・攻略メモ・マップイベントの予定: [ARC Raiders Wiki](https://arcraiders.wiki/)（CC BY-SA）
 - ゲーム内の名称・画像などの著作権は Embark Studios AB に帰属します。本ツールは Embark Studios とは関係ありません。
