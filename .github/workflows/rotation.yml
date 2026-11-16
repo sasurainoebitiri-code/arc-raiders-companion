@@ -1,0 +1,29 @@
+name: マップイベントの時間割を更新
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: rotation
+  cancel-in-progress: false
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: 時間割を取得
+        run: |
+          curl -sfL --retry 3 --max-time 30 -A "Mozilla/5.0 (arc-raiders-companion)" \
+            "https://arcraiders.wiki/w/extensions/ConditionRotation/map_rotation.json" -o new.json
+          python3 -c "import json,sys; d=json.load(open('new.json')); assert isinstance(d,list) and len(d)>3; json.dump(d,open('rotation.json','w'),ensure_ascii=False,separators=(',',':'))"
+          rm -f new.json
+      - name: 変わっていたら保存
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add rotation.json
+          if git diff --cached --quiet; then echo "変更なし"; exit 0; fi
+          git commit -m "マップイベントの時間割を更新"
+          git push
